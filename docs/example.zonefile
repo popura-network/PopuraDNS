@@ -1,0 +1,7 @@
+$ORIGIN aiql7yv7ka6ck5mxpfnugi3hoe.popura.
+$TTL 3600
+aiql7yv7ka6ck5mxpfnugi3hoe.popura.  IN  SOA   aiql7yv7ka6ck5mxpfnugi3hoe.popura. admin.aiql7yv7ka6ck5mxpfnugi3hoe.popura. ( 1111111111 7200 3600 1209600 3600 )
+
+@ IN AAAA 220:bfe2:bf50:3c25:7597:795b:4323:6771
+www IN CNAME aiql7yv7ka6ck5mxpfnugi3hoe.popura.
+lofi IN AAAA 320:bfe2:bf50:3c25::f

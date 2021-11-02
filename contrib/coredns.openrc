@@ -1,0 +1,12 @@
+#!/sbin/openrc-run
+name="coredns"
+description="Experimental DNS server for mesh networks"
+supervisor=supervise-daemon
+command=/usr/local/bin/coredns
+command_args="-conf /etc/coredns/Corefile"
+
+depend() {
+	need net
+	after firewall
+	before radvd
+}

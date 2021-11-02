@@ -1,0 +1,68 @@
+## Resolve .meshname and .popura domains with the meshname protocol
+meshname, popura {
+  acl {
+    allow net 127.0.0.0/8 ::1/128
+    block
+  }
+  meshname
+}
+
+## Example .popura domain hosting with a simple /etc/hosts like config
+#aiql7yv7ka6ck5mxpfnugi3hoe.popura {
+#    hosts {
+#     220:bfe2:bf50:3c25:7597:795b:4323:6771 aiql7yv7ka6ck5mxpfnugi3hoe.popura
+#     320:bfe2:bf50:3c25::f                  lofi.aiql7yv7ka6ck5mxpfnugi3hoe.popura
+#    }
+#}
+
+## Example .popura domain hosting with file plugin.
+## (Zone data is in RFC 1035-style master file)
+#aiql7yv7ka6ck5mxpfnugi3hoe.popura {
+#    file /etc/coredns/example.zonefile
+#}
+
+## Example .meship support
+#meship {
+#  meship
+#}
+
+## Resolve Alfis domains
+anon, ygg {
+  acl {
+    allow net 127.0.0.0/8 ::1/128
+    block
+  }
+  forward . [302:db60::53]:53 [300:6223::53]:53 [302:7991::53]:53
+}
+
+## Resolve OpenNIC domains
+bbs, chan, cyb, dyn, epic, geek, gopher, indy, libre, neo, null, o, oss, oz, parody, pirate, bazar, coin, emc, lib, fur, ku, te, ti, uu, ko, rm {
+  acl {
+    allow net 127.0.0.0/8 ::1/128
+    block
+  }
+  forward . [324:71e:281a:9ed3::53]:53 [200:2892:d0f:bc20:8a8e:c7be:9d9e:ab55]:53
+}
+
+## Resolve legacy centralized Internet domains
+. {
+  hosts {
+    fallthrough
+  }
+  acl {
+    allow net 127.0.0.0/8 ::1/128
+    ## Use this line instead to allow all LAN/private network clients
+    #allow net 127.0.0.0/8 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 ::1/128 fc00::/7
+    block
+  }
+
+  ## Resolve all other DNS queries via AdGuard with DNS-over-TLS encryption
+  forward . tls://94.140.14.14:853 tls://94.140.15.15:853 {
+    tls_servername dns.adguard.com
+    health_check 5s
+  }
+
+  ## Forward to unencrypted DNS servers
+  #forward . [324:71e:281a:9ed3::53]:53 [302:db60::53]:53 [300:6223::53]:53 [325:5a4:d1c9:db96::53]:53
+  #forward . 1.1.1.1:53 8.8.8.8:53
+}
